@@ -3,7 +3,6 @@ np.object = object  # Compatibility fix for libraries using removed np.object (N
 
 import cv2
 import tensorflow as tf
-import tensorflow_hub as hub
 
 def transfer_style(content_image, style_image, model_path):
 
@@ -56,8 +55,7 @@ def transfer_style(content_image, style_image, model_path):
     style_image = tf.image.resize(style_image, (256, 256))
 
     print("Loading pre-trained model...")
-    # The hub.load() loads any TF Hub model
-    hub_module = hub.load(model_path)
+    hub_module = tf.saved_model.load(model_path)
 
     print("Generating stylized image now...wait a minute")
     # Stylize image.
