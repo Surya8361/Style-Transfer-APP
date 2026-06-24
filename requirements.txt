@@ -1,3 +1,4 @@
+setuptools
 numpy>=1.26.0
 opencv-python-headless>=4.7.0
 Pillow>=9.0.0
