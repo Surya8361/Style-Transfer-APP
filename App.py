@@ -4,8 +4,9 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 from io import BytesIO
+
+np.object = object  # Compatibility fix for libraries using removed np.object (NumPy >= 1.24)
 import API
-np.object = object    
 # from API import transfer_style
 
 
@@ -102,8 +103,8 @@ if content_image is not None and style_image is not None:
 
     with st.spinner("Styling Images...will take about 20-30 secs"):
 
-        content_image = Image.open(content_image)
-        style_image = Image.open(style_image)
+        content_image = Image.open(content_image).convert("RGB")
+        style_image = Image.open(style_image).convert("RGB")
 
         # Convert PIL Image to numpy array
         content_image = np.array(content_image)
@@ -114,8 +115,7 @@ if content_image is not None and style_image is not None:
 
         # output image
         styled_image = API.transfer_style(content_image, style_image, model_path)
-        if style_image is not None:
-            # some baloons
+        if styled_image is not None:
             st.balloons()
 
         col1, col2 = st.columns(2)

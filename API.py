@@ -1,10 +1,9 @@
-import cv2
-
 import numpy as np
+np.object = object  # Compatibility fix for libraries using removed np.object (NumPy >= 1.24)
+
+import cv2
 import tensorflow as tf
 import tensorflow_hub as hub
-
-np.object = object    
 
 def transfer_style(content_image, style_image, model_path):
 
